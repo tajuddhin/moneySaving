@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>50/30/20 Budget Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f7f7f7;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2, h3 {
+      text-align: center;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result, .investment-table {
+      margin-top: 20px;
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #ff6600;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #ffe6e6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>50/30/20 Budget Calculator</h2>
+    <label for="salary">Enter Your Monthly Salary:</label>
+    <input type="number" id="salary" placeholder="e.g. 50000" />
+    <button onclick="calculateBudget()">Calculate</button>
+    <div class="result" id="result" style="display:none;">
+      <p><strong>Needs (50%):</strong> ₹<span id="needs"></span></p>
+      <p><strong>Wants (30%):</strong> ₹<span id="wants"></span></p>
+      <p><strong>Savings & Debt Repayment (20%):</strong> ₹<span id="savings"></span></p>
+    </div>
+
+    <div class="investment-table" id="investmentTable" style="display:none;">
+      <h3>Overview of Investment Avenues (Dynamic)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Investment Type</th>
+            <th>% Allocation</th>
+            <th>Monthly Amt (₹)</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SIP in Mutual Funds</td>
+            <td>40%</td>
+            <td id="sip"></td>
+            <td>Wealth growth over time</td>
+          </tr>
+          <tr>
+            <td>Public Provident Fund (PPF)</td>
+            <td>20%</td>
+            <td id="ppf"></td>
+            <td>Tax-saving + 7% fixed return</td>
+          </tr>
+          <tr>
+            <td>NPS (National Pension Scheme)</td>
+            <td>10%</td>
+            <td id="nps"></td>
+            <td>Pension corpus build-up</td>
+          </tr>
+          <tr>
+            <td>Emergency Fund</td>
+            <td>10%</td>
+            <td id="emergency"></td>
+            <td>Goal: 3–6 months of expenses</td>
+          </tr>
+          <tr>
+            <td>Term Insurance Premium</td>
+            <td>Fixed</td>
+            <td id="termInsurance"></td>
+            <td>Minimum ₹1 Cr life cover</td>
+          </tr>
+          <tr>
+            <td>Health Insurance Premium</td>
+            <td>Fixed</td>
+            <td id="healthInsurance"></td>
+            <td>Medical safety for self/family (20 Lakh Min)</td>
+          </tr>
+          <tr>
+            <td>Direct Stocks / Gold ETFs</td>
+            <td>Optional</td>
+            <td id="stocks"></td>
+            <td>Long-term diversification</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function calculateBudget() {
+      const salary = parseFloat(document.getElementById('salary').value);
+      if (!salary || salary <= 0) {
+        alert('Please enter a valid salary amount.');
+        return;
+      }
+      const needs = (salary * 0.5).toFixed(2);
+      const wants = (salary * 0.3).toFixed(2);
+      const savings = (salary * 0.2).toFixed(2);
+
+      document.getElementById('needs').innerText = needs;
+      document.getElementById('wants').innerText = wants;
+      document.getElementById('savings').innerText = savings;
+      document.getElementById('result').style.display = 'block';
+
+      const investmentAmount = salary * 0.2;
+      document.getElementById('sip').innerText = (investmentAmount * 0.4).toFixed(2);
+      document.getElementById('ppf').innerText = (investmentAmount * 0.2).toFixed(2);
+      document.getElementById('nps').innerText = (investmentAmount * 0.1).toFixed(2);
+      document.getElementById('emergency').innerText = (investmentAmount * 0.1).toFixed(2);
+      document.getElementById('termInsurance').innerText = (investmentAmount * 0.075).toFixed(2);
+      document.getElementById('healthInsurance').innerText = (investmentAmount * 0.075).toFixed(2);
+      document.getElementById('stocks').innerText = (investmentAmount * 0.05).toFixed(2);
+      document.getElementById('investmentTable').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
